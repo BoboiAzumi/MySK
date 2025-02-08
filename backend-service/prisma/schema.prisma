@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id       Int    @id @default(autoincrement())
+  username String
+  password String
+  userId   Int    @unique
+
+  UserInformation UserInformation @relation(fields: [userId], references: [id])
+
+  @@map("accounts")
+}
+
+model UserInformation {
+  id       Int        @id @default(autoincrement())
+  fullName String     @map("full_name")
+  email    String     @default("")
+  phone    String     @default("")
+  picture  String     @default("")
+  role     Role
+  Account  Account?
+  By       Document[] @relation("by")
+  To       Document[] @relation("to")
+  Document Document[]
+
+  @@map("user_informations")
+}
+
+model Document {
+  id        Int             @id @default(autoincrement())
+  title     String
+  by        Int
+  to        Int
+  createdAt DateTime        @default(now())
+  ByUser    UserInformation @relation(fields: [by], references: [id], name: "by")
+  ToUser    UserInformation @relation(fields: [to], references: [id], name: "to")
+
+  File              File[]
+  UserInformation   UserInformation? @relation(fields: [userInformationId], references: [id])
+  userInformationId Int?
+
+  @@map("documents")
+}
+
+model File {
+  id         Int      @id @default(autoincrement())
+  location   String
+  type       String
+  documentId Int
+  Document   Document @relation(fields: [documentId], references: [id])
+
+  @@map("files")
+}
+
+enum Role {
+  ADMIN
+  DOSEN
+}
