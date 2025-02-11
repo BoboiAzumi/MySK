@@ -1,10 +1,10 @@
-import { BackendHost, BackendProtocol } from "../config/backend-host";
+import { BackendUrl } from "../config/backend-host";
 import { AccountTypes } from "../types/account";
 import { Metadata } from "../types/meta";
 
 export async function FetchSessionInformation(token: string): Promise<{meta: Metadata, data: AccountTypes}> {
     try{
-        const f = await fetch(`${BackendProtocol}://${BackendHost}/auth/me`, {
+        const f = await fetch(`${BackendUrl}/auth/me`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`

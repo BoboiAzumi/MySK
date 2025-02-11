@@ -7,6 +7,8 @@ import { useState } from "react"
 import { SubDashboard } from "./sub/dashboard"
 import { useContext } from "react"
 import { accountContext } from "../context/account"
+import { UploadPage } from "./sub/upload-page"
+import { ListSK } from "./sub/list-sk"
 
 export function Dashboard(){
     const [pages, setPages] = useState(1)
@@ -21,7 +23,9 @@ export function Dashboard(){
                     {pages == 1 ? 
                         (<SubDashboard />) : 
                     pages == 2 ? 
-                        (<></>) : (<></>)}
+                        (<ListSK />) : 
+                    pages == 3 ? 
+                        (<UploadPage />) : (<></>)}
                 </div>
                 {/* Sidebar */}
                 <div className="drawer-side z-40">
