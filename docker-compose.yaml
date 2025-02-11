@@ -1,0 +1,54 @@
+services:
+  backend-service:
+    build: 
+      context: ./backend-service
+      dockerfile: Dockerfile
+
+    tty: true
+    restart: always
+
+    networks:
+      mysk-network:
+        ipv4_address: 172.120.0.2
+
+  frontend-service:
+    build: 
+      context: ./frontend-service
+      dockerfile: Dockerfile
+
+    tty: true
+    restart: always
+
+    depends_on:
+      - backend-service
+
+    networks:
+      mysk-network:
+        ipv4_address: 172.120.0.3
+
+  reverse-proxy:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+
+    tty: true
+    restart: always
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      - backend-service
+      - frontend-service
+    
+    networks:
+      mysk-network:
+        ipv4_address: 172.120.0.4
+
+networks:
+  mysk-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.120.0.0/16
+          gateway: 172.120.0.1
