@@ -2,8 +2,8 @@ FROM node:22.13.1-alpine3.20
 
 WORKDIR /app
 
+COPY .env.docker /app/.env
 COPY . .
-COPY /app/.env.docker /app/.env
 
 RUN npm install
 RUN npm run build
