@@ -25,16 +25,16 @@ model Account {
 }
 
 model UserInformation {
-  id       Int        @id @default(autoincrement())
-  fullName String     @map("full_name")
-  email    String     @default("")
-  phone    String     @default("")
-  picture  String     @default("")
-  role     Role
-  Account  Account?
-  By       Document[] @relation("by")
-  To       Document[] @relation("to")
-  Document Document[]
+  id         Int        @id @default(autoincrement())
+  fullName   String     @map("full_name")
+  email      String     @default("")
+  phone      String     @default("")
+  picture    String     @default("/uploads/img/person.png")
+  identifier String     @default("")
+  role       Role
+  Account    Account?
+  By         Document[] @relation("by")
+  To         Document[] @relation("to")
 
   @@map("user_informations")
 }
@@ -48,9 +48,7 @@ model Document {
   ByUser    UserInformation @relation(fields: [by], references: [id], name: "by")
   ToUser    UserInformation @relation(fields: [to], references: [id], name: "to")
 
-  File              File[]
-  UserInformation   UserInformation? @relation(fields: [userInformationId], references: [id])
-  userInformationId Int?
+  File File[]
 
   @@map("documents")
 }
@@ -59,7 +57,8 @@ model File {
   id         Int      @id @default(autoincrement())
   location   String
   type       String
-  documentId Int
+  documentId Int @map("document_id")
+  fileName   String
   Document   Document @relation(fields: [documentId], references: [id])
 
   @@map("files")

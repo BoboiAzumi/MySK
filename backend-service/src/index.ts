@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 import cors from "cors"
 import { FileAuthorization } from "./middlewares/authorization"
 import { Role } from "@prisma/client"
+import { DownloadMiddleware } from "./middlewares/download"
 
 dotenv.config()
 
@@ -12,7 +13,8 @@ const app: Express = express()
 
 app.use(
     '/uploads',
-    FileAuthorization([Role.ADMIN, Role.DOSEN]),
+    //FileAuthorization([Role.ADMIN, Role.DOSEN]),
+    DownloadMiddleware,
     express.static('public')
 )
 

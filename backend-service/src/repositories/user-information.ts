@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client";
 import { User } from "../types/user";
 import { prisma } from "../utils/database";
 
@@ -19,4 +20,16 @@ export async function findUserById(id: number){
             id
         }
     })
+}
+
+export async function findAllUserByRole(role: Role){
+    return prisma.userInformation.findMany({
+        where: {
+            role
+        }
+    })
+}
+
+export async function findAllUser(){
+    return prisma.userInformation.findMany()
 }
