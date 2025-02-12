@@ -10,8 +10,6 @@ RUN npx prisma generate
 RUN npx prisma migrate deploy
 RUN npm run build
 RUN npm run setup-admin
-RUN mkdir /app/public/files && mkdir /app/public/img
-COPY ./public /app/public
 
 EXPOSE 3000
 

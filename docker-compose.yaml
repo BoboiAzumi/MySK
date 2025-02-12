@@ -16,7 +16,8 @@ services:
     restart: always
 
     volumes:
-      - /var/mysk:/app/public
+      - /var/mysk/files:/app/public/files
+      - /var/mysk/img:/app/public/img
 
     networks:
       mysk-network:
