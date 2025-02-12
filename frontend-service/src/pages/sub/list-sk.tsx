@@ -63,8 +63,8 @@ export function ListSK(){
                             </select>
                         </div>
                         {
-                            documentResponse.map((v, i) => (
-                                <div className="w-full bg-[#f2f2f2] p-4 rounded-md mb-4">
+                            documentResponse.map((v:DocumentTypes, i:number) => (
+                                <div className="w-full bg-[#f2f2f2] p-4 rounded-md mb-4" key={v.id}>
                                     <h6 className="font-semibold mb-5">
                                         {v.title}
                                     </h6>
