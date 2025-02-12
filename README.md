@@ -1,5 +1,5 @@
 # Diagram Architecture
-<img>
+<img src="https://raw.githubusercontent.com/BoboiAzumi/MySK/refs/heads/main/assets/Diagram.png">
 
 # Installation
 ## Prerequisite
