@@ -6,6 +6,7 @@ COPY .env.docker /app/.env
 COPY . .
 
 RUN npm install
+RUN npx prisma migrate deploy
 RUN npm run build
 
 EXPOSE 3000
