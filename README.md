@@ -3,8 +3,9 @@
 
 # Installation
 ## Prerequisite
-| Operating System | Ubuntu ^22.04 |
+| Software         | version       |
 |------------------|---------------|
+| Operating System | Ubuntu ^22.04 |
 | Docker           | ^27.4.1       |
 | Postgresql       | ^16.6         |
 
