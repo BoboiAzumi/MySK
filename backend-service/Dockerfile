@@ -11,6 +11,8 @@ RUN npx prisma migrate deploy
 RUN npm run build
 RUN npm run setup-admin
 
+COPY ./public/img/person.png /app/public/img
+
 EXPOSE 3000
 
 CMD ["npm", "run", "start"]
