@@ -2,8 +2,14 @@ import { NextFunction, Request, Response } from "express";
 import { jwtFileVerify, jwtVerify } from "../utils/jwt";
 import { ErrorHandler } from "../utils/error-handler";
 import { findUserById } from "../repositories/user-information";
+import fs from "fs"
 
 export function Authorization(role: string[]) {
+  const existDefaultAssets = fs.existsSync("./public/img/person.png")
+  if(!existDefaultAssets){
+    fs.copyFileSync("./public/default/person.png", "./public/img/person.png")
+  }
+
   return async function (req: Request, res: Response, next: NextFunction) {
     try {
       const authHeader = req.headers["authorization"];
