@@ -9,5 +9,6 @@ export type User = {
     phone: string,
     picture: string,
     role: "ADMIN" | "DOSEN"
-    credential: Credential
+    credential: Credential,
+    identifier?: string
 }

@@ -9,7 +9,8 @@ export async function createUserInformation(user: User){
             email: user.email,
             phone: user.phone,
             picture: user.picture,
-            role: user.role
+            role: user.role,
+            identifier: user.identifier
         }
     })
 }
