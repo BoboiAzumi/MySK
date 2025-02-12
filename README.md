@@ -1,3 +1,6 @@
+# Diagram Architecture
+<img>
+
 # Installation
 ## Prerequisite
 | Operating System | Ubuntu ^22.04 |
