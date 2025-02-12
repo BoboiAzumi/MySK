@@ -102,7 +102,11 @@ export function ListSK(){
                                 </div>
                             ))
                         }
-                        <div className="flex justify-center items-center">
+                        {documentResponse.length == 0 ? (
+                            <h4 className="text-center my-10">Empty</h4>
+                        ) : (
+                        <>
+                            <div className="flex justify-center items-center">
                             {pagination.previous ? (
                                 <button className="btn btn-info" onClick={() => setPage(page-1)}>
                                     Previous
@@ -115,6 +119,8 @@ export function ListSK(){
                                 </button>
                             ) : (<></>)}
                         </div>
+                        </>
+                        )}
                     </div>
                 </div>) 
                     : 
