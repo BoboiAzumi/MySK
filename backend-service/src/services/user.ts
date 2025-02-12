@@ -1,6 +1,7 @@
 import { Role } from "@prisma/client";
-import { findAllUser, findAllUserByRole } from "../repositories/user-information";
+import { createUserInformation, findAllUser, findAllUserByRole } from "../repositories/user-information";
 import { ResponseBuilder } from "../utils/response-builder";
+import { User } from "../types/user";
 
 export async function GetUserService(role: Role){
     const user = await findAllUserByRole(role)

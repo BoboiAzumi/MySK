@@ -15,6 +15,9 @@ services:
     tty: true
     restart: always
 
+    volumes:
+      - /var/mysk:/app/public
+
     networks:
       mysk-network:
         ipv4_address: 172.120.0.2
