@@ -6,7 +6,7 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node ./dist/index.js",
-    "setup-admin": "tsx ./src/setup-default-user.ts"
+    "setup-admin": "node ./dist/setup-default-user.js"
   },
   "keywords": [],
   "author": "",
