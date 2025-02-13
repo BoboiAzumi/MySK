@@ -29,6 +29,7 @@ export type DocumentTypes = {
     title: string,
     by: number,
     to: number,
+    documentType: string,
     createdAt: string,
     File: FileDbTypes[],
     ByUser: UserDocumentTypes,

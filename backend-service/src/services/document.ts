@@ -1,12 +1,12 @@
-import { Role } from "@prisma/client";
+import { DocumentType, Role } from "@prisma/client";
 import { countDocument, createNewDocument, deleteDocument, findDocumentById, getAllDocument, getAllDocumentByTo } from "../repositories/document";
 import { ResponseBuilder } from "../utils/response-builder";
 import { ErrorHandler } from "../utils/error-handler";
 import { unlinkSync } from "fs";
 import { deleteFile } from "../repositories/file";
 
-export async function CreateDocumentService(title: string, by: number, to: number){
-    const newDocument = await createNewDocument(title, by, to)
+export async function CreateDocumentService(title: string, by: number, to: number, documentType: DocumentType){
+    const newDocument = await createNewDocument(title, by, to, documentType)
 
     return ResponseBuilder(
         201,
@@ -18,7 +18,7 @@ export async function CreateDocumentService(title: string, by: number, to: numbe
     )
 }
 
-export async function GetDocumentService(limit: number, page: number, role: string, userId: number){
+export async function GetDocumentService(limit: number, page: number, role: string, userId: number, q: string){
     const skip = limit * (page - 1 >= 0 ? page - 1 : 0)
     const take = limit
 
@@ -34,7 +34,7 @@ export async function GetDocumentService(limit: number, page: number, role: stri
                 previous: page <= 1 ? false : true,
                 next: skip + take >= documentCount ? false : true
             },
-            documents: role == Role.ADMIN ? await getAllDocument(take, skip) : await getAllDocumentByTo(take, skip, userId)
+            documents: role == Role.ADMIN ? await getAllDocument(take, skip, q) : await getAllDocumentByTo(take, skip, userId, q)
         }
     )
 }

@@ -3,6 +3,7 @@ import { BatchUpload } from "../types/batch";
 
 export async function UploadBatch(batch: BatchUpload[], setBatch: React.Dispatch<React.SetStateAction<BatchUpload[]>>){
     const success: number[] = []
+    console.log(batch)
     await Promise.all(batch.map(async (v: BatchUpload, i: number) => {
         if(v.files.length == 0 || v.title == "" || v.to == -1){
             return
@@ -16,7 +17,8 @@ export async function UploadBatch(batch: BatchUpload[], setBatch: React.Dispatch
             },
             body: JSON.stringify({
                 title: v.title,
-                to: v.to
+                to: v.to,
+                documentType: v.documentType
             })
         })
 

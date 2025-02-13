@@ -6,5 +6,6 @@ export type FileInformation = {
 export type BatchUpload = {
     title: string
     to: number
+    documentType: "Pengajaran" | "Penelitian" | "Pengabdian" | "Penunjang"
     files: FileInformation[]
 }

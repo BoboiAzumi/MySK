@@ -7,7 +7,7 @@ export async function CreateNewDocument(req: Request, res: Response, next: NextF
     try{
         const token = req.headers["authorization"]?.split(" ")[1]
         const parse = jwtVerify(token? token : "")
-        const { title, to } = req.body
+        const { title, to, documentType } = req.body
         const by = parse.id
 
         if(parse.role != "ADMIN" && to != by){
@@ -16,7 +16,7 @@ export async function CreateNewDocument(req: Request, res: Response, next: NextF
             return
         }
 
-        const documentCreated = await CreateDocumentService(title, by, to)
+        const documentCreated = await CreateDocumentService(title, by, to, documentType)
         res.json(documentCreated)
         return
     }
@@ -31,9 +31,9 @@ export async function CreateNewDocument(req: Request, res: Response, next: NextF
 
 export async function GetDocument(req: Request, res: Response, next: NextFunction){
     try{
-        const { limit, page } = req.query
+        const { limit, page, q } = req.query
         const token = jwtVerify(<string>req.headers["authorization"]?.split(" ")[1])
-        const response = await GetDocumentService(limit ? parseInt(<string>limit) : 2, page ? parseInt(<string>page) : 1, token.role, token.id)
+        const response = await GetDocumentService(limit ? parseInt(<string>limit) : 2, page ? parseInt(<string>page) : 1, token.role, token.id, <string>q)
         res.json(response)
         return
     }

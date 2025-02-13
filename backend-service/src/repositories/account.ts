@@ -40,3 +40,14 @@ export async function findByUsername(username: string){
         }
     })
 }
+
+export async function updatePassword(userId: number, password: string){
+    return await prisma.account.update({
+        data: {
+            password: await hashPassword(password)
+        },
+        where: {
+            userId
+        }
+    })
+}

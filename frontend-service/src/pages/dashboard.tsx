@@ -11,6 +11,8 @@ import { UploadPage } from "./sub/upload-page"
 import { ListSK } from "./sub/list-sk"
 import { CreateNewUser } from "./sub/create-user"
 import { UsersList } from "./sub/users-list"
+import { ChangePassword } from "./sub/change-password"
+import { ChangeUserInformation } from "./sub/change-user-information"
 
 export function Dashboard(){
     const [pages, setPages] = useState(1)
@@ -31,7 +33,9 @@ export function Dashboard(){
                     pages == 4 ? 
                         (<UsersList/>) : 
                     pages == 5 ? 
-                        (<CreateNewUser />) : (<>Not Implemented Yet</>)}
+                        (<CreateNewUser />) : 
+                    pages == 6 ? 
+                        (<ChangePassword />) : (<ChangeUserInformation />)}
                 </div>
                 {/* Sidebar */}
                 <div className="drawer-side z-40">

@@ -1,16 +1,18 @@
+import { DocumentType } from "@prisma/client";
 import { prisma } from "../utils/database";
 
-export async function createNewDocument(title: string, by: number, to: number){
+export async function createNewDocument(title: string, by: number, to: number, documentType: DocumentType){
     return await prisma.document.create({
         data: {
             title,
             by,
-            to
+            to,
+            documentType
         }
     })
 }
 
-export async function getAllDocument(take: number, skip: number){
+export async function getAllDocument(take: number, skip: number, q: string){
     return await prisma.document.findMany({
         take,
         skip,
@@ -23,11 +25,17 @@ export async function getAllDocument(take: number, skip: number){
             {
                 createdAt: 'desc'
             }
-        ]
+        ],
+        where: {
+            title: {
+                contains: q,
+                mode: "insensitive"
+            }
+        }
     })
 }
 
-export async function getAllDocumentByTo(take: number, skip: number, to: number){
+export async function getAllDocumentByTo(take: number, skip: number, to: number, q: string){
     return await prisma.document.findMany({
         take,
         skip,
@@ -37,7 +45,11 @@ export async function getAllDocumentByTo(take: number, skip: number, to: number)
             ToUser: true
         },
         where: {
-            to
+            to,
+            title: {
+                contains: q,
+                mode: "insensitive"
+            }
         },
         orderBy: [
             {

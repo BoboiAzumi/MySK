@@ -40,13 +40,14 @@ model UserInformation {
 }
 
 model Document {
-  id        Int             @id @default(autoincrement())
-  title     String
-  by        Int
-  to        Int
-  createdAt DateTime        @default(now())
-  ByUser    UserInformation @relation(fields: [by], references: [id], name: "by")
-  ToUser    UserInformation @relation(fields: [to], references: [id], name: "to")
+  id           Int             @id @default(autoincrement())
+  title        String
+  by           Int
+  to           Int
+  createdAt    DateTime        @default(now())
+  documentType DocumentType    @map("document_type")
+  ByUser       UserInformation @relation(fields: [by], references: [id], name: "by")
+  ToUser       UserInformation @relation(fields: [to], references: [id], name: "to")
 
   File File[]
 
@@ -57,7 +58,7 @@ model File {
   id         Int      @id @default(autoincrement())
   location   String
   type       String
-  documentId Int @map("document_id")
+  documentId Int      @map("document_id")
   fileName   String
   Document   Document @relation(fields: [documentId], references: [id])
 
@@ -67,4 +68,11 @@ model File {
 enum Role {
   ADMIN
   DOSEN
+}
+
+enum DocumentType {
+  Pengajaran
+  Penelitian
+  Pengabdian
+  Penunjang
 }

@@ -61,6 +61,20 @@ export function UploadPage() {
                                         </select>
                                     </>
                                 ) : (<></>)}
+                                <h6>Jenis</h6>
+                                <select 
+                                    className="select select-bordered select-md mb-4"
+                                    onChange={(ev) => {
+                                        const batchBefore = [...batch]
+                                            batchBefore[i].documentType = ev.target.value as "Pengajaran" | "Penelitian" | "Pengabdian" | "Penunjang"
+                                            setBatch(batchBefore)
+                                        }}
+                                    >
+                                    <option value={"Pengajaran"}>Pengajaran</option>
+                                    <option value={"Penelitian"}>Penelitian</option>
+                                    <option value={"Pengabdian"}>Pengabdian</option>
+                                    <option value={"Penunjang"}>Penunjang</option>
+                                </select>
                                 <div className="mb-4 bg-white p-4 rounded-sm">
                                     {v.files.map((file, index: number) => (
                                         <div className="flex justify-between items-center mb-2">
@@ -155,6 +169,7 @@ export function UploadPage() {
                                     batchBefore.push({
                                         title: "",
                                         files: [] as FileInformation[],
+                                        documentType: "Pengajaran",
                                         to: account.role == "ADMIN" ? 0 : account.id
                                     })
                                     setBatch(batchBefore)

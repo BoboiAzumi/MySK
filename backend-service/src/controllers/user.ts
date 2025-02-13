@@ -21,3 +21,17 @@ export async function GetUserList(req: Request, res: Response, next: NextFunctio
         next(err)
     }
 }
+
+export async function UpdatePassword(req: Request, res: Response, next: NextFunction){
+    try{
+        
+        return
+    }
+    catch (err: unknown){
+        if((err as Error).name != "ErrorHandler"){
+            next(new ErrorHandler(400, "ERROR_REQUEST", (err as Error).message))
+        }
+
+        next(err)
+    }
+}

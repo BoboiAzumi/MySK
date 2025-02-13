@@ -6,6 +6,7 @@ import { DocumentTypes, PaginationTypes } from "../../types/document"
 import { BackendUrl } from "../../config/backend-host"
 import { accountContext } from "../../context/account"
 import { DeleteDocument } from "../../utils/delete-document"
+import { ParseDate } from "../../utils/parse-date"
 
 export function ListSK(){
     const [load, setLoad] = useState(false)
@@ -14,10 +15,11 @@ export function ListSK(){
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(5)
     const [selectedDocument, setSelectedDocument] = useState(0)
+    const [search, setSearch] = useState("")
     const account = useContext(accountContext)
 
     async function loadDocument(){
-        const df = await FetchDocument(limit, page)
+        const df = await FetchDocument(limit, page, search)
         setDocumentResponse(df.documents)
         setPagination(df.pagination)
         setTimeout(() => setLoad(true), 1000);
@@ -33,6 +35,13 @@ export function ListSK(){
         }
         loadDocument()
     }, [limit, page])
+
+    useEffect(() => {
+        if(!load){
+            return
+        }
+        loadDocument()
+    }, [search])
 
     function deleteDocument(index: number){
         setSelectedDocument(index)
@@ -52,8 +61,9 @@ export function ListSK(){
             {load ? 
                 (<div className="p-5 lg:p-10 min-h-[100vh]">
                     <div className="w-full bg-white rounded-md shadow p-3 lg:p-5">
-                        <div className="flex justify-between">
-                            <h4 className="text-xl lg:text-2xl font-semibold mb-5">Daftar SK</h4>
+                        <h4 className="text-xl lg:text-2xl font-semibold mb-5">Daftar SK</h4>
+                        <div className="flex justify-between gap-5">
+                            <input type="text" className="input" placeholder="Search" value={search} onChange={(ev) => setSearch(ev.target.value)} />
                             <select className="select mb-5" onChange={(ev) => setLimit(parseInt(ev.target.value))}>
                                 <option value={5}>5</option>
                                 <option value={10}>10</option>
@@ -65,20 +75,38 @@ export function ListSK(){
                         {
                             documentResponse.map((v:DocumentTypes, i:number) => (
                                 <div className="w-full bg-[#f2f2f2] p-4 rounded-md mb-4" key={v.id}>
-                                    <h6 className="font-semibold mb-5">
+                                    <h6 className="font-semibold mb-5 items-center">
                                         {v.title}
                                     </h6>
-                                    <div className="grid gap-3 grid-flow-row-dense">
-                                        <div className={`badge h-auto ${v.ByUser.role == "ADMIN" ? "badge-success" : "badge-info"}`}>
-                                            <h6 className="font-semibold">
-                                                Uploaded by {v.ByUser.fullName}
-                                            </h6>
-                                        </div>
-                                        <div className={`badge h-auto ${v.ToUser.role == "ADMIN" ? "badge-success" : "badge-info"}`}>
-                                            <h6 className="font-semibold">
-                                                To {v.ToUser.fullName}
-                                            </h6>
-                                        </div>
+                                    <div className="grid grid-cols-2 grid-flow-row-dense gap-2 lg:w-[50%]">
+                                        <h6 className="font-semibold">
+                                            Jenis
+                                        </h6>
+                                        <h6>
+                                            : <div className={`badge h-auto badge-success`}>
+                                                <h6 className="font-semibold">
+                                                    {v.documentType}
+                                                </h6>
+                                            </div>
+                                        </h6>
+                                        <h6 className="font-semibold">
+                                            Uploaded by
+                                        </h6>
+                                        <h6>
+                                            : {v.ByUser.fullName}
+                                        </h6>
+                                        <h6 className="font-semibold">
+                                            To
+                                        </h6>
+                                        <h6>
+                                            : {v.ToUser.fullName}
+                                        </h6>
+                                        <h6 className="font-semibold">
+                                            Date
+                                        </h6>
+                                        <h6>
+                                            : {ParseDate(v.createdAt)}
+                                        </h6>
                                     </div>
                                     <h6 className="mt-5 font-semibold">Files</h6>
                                     {v.File.map((file) => (
@@ -128,7 +156,7 @@ export function ListSK(){
             }
             <dialog id="confirm_delete_modal" className="modal">
                 <div className="modal-box">
-                    <h3 className="text-lg">Yakin ingin menghapus dokumen <b>{documentResponse.length != 0 ? documentResponse[selectedDocument].title ? documentResponse[selectedDocument].title : "" : ""}</b></h3>
+                    <h3 className="text-lg">Yakin ingin menghapus dokumen <b>{documentResponse.length != 0 ? documentResponse[selectedDocument]?.title ? documentResponse[selectedDocument]?.title : "" : ""}</b></h3>
                     <p className="py-4"></p>
                     <div className="modal-action">
                         <form method="dialog" className="flex gap-2">
