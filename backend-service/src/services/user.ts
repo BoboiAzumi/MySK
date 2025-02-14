@@ -1,5 +1,5 @@
 import { Role } from "@prisma/client";
-import { findAllUser, findAllUserByRole } from "../repositories/user-information";
+import { findAllUser, findAllUserByRole, findUserById, updatePassword } from "../repositories/user-information";
 import { ResponseBuilder } from "../utils/response-builder";
 
 export async function GetUserService(role: Role){
@@ -24,6 +24,24 @@ export async function GetAllUserService(){
     )
 }
 
-export async function UpdatePasswordService(userId: string, newPassword: string){
-    
+export async function UpdatePasswordService(userId: number, password: string){
+    await updatePassword(userId, password)
+
+    return ResponseBuilder(
+        200,
+        "SUCCESS",
+        "Successfuly update password",
+        {}
+    )
+}
+
+export async function GetUserByIdService(userId: number){
+    const user = await findUserById(userId)
+
+    return ResponseBuilder(
+        200,
+        "SUCCESS",
+        "Successfuly get user id",
+        <object>user
+    )
 }

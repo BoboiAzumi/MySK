@@ -1,6 +1,7 @@
 import { Role } from "@prisma/client";
 import { User } from "../types/user";
 import { prisma } from "../utils/database";
+import { hashPassword } from "../utils/bcrypt";
 
 export async function createUserInformation(user: User){
     return prisma.userInformation.create({
@@ -33,4 +34,19 @@ export async function findAllUserByRole(role: Role){
 
 export async function findAllUser(){
     return prisma.userInformation.findMany()
+}
+
+export async function updatePassword(userId: number, password: string){
+    return prisma.userInformation.update({
+        data: {
+            Account: {
+                update: {
+                    password: await hashPassword(password)
+                }
+            }
+        },
+        where: {
+            id: userId
+        }
+    })
 }
