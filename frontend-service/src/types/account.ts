@@ -28,3 +28,14 @@ export type UserResponseTypes = {
     meta: Metadata,
     data: User[]
 }
+
+export type UserWithId = {
+    id: number,
+    fullName: string,
+    email: string,
+    phone: string,
+    picture: string,
+    role: "ADMIN" | "DOSEN"
+    credential: Credential,
+    identifier?: string
+}
