@@ -1,5 +1,5 @@
 import { DocumentType, Role } from "@prisma/client";
-import { countDocument, createNewDocument, deleteDocument, findDocumentById, getAllDocument, getAllDocumentByTo } from "../repositories/document";
+import { countDocument, countDocumentByUserId, createNewDocument, deleteDocument, findDocumentById, getAllDocument, getAllDocumentByTo } from "../repositories/document";
 import { ResponseBuilder } from "../utils/response-builder";
 import { ErrorHandler } from "../utils/error-handler";
 import { unlinkSync } from "fs";
@@ -78,6 +78,18 @@ export async function DeleteDocumentByNonAdminService(id: number, userId: number
 
 export async function CountDocumentService(){
     const count = await countDocument()
+    return ResponseBuilder(
+        200,
+        "SUCCESS",
+        "Document has been count",
+        {
+            count
+        }
+    )
+}
+
+export async function CountDocumentByUserId(userId: number){
+    const count = await countDocumentByUserId(userId)
     return ResponseBuilder(
         200,
         "SUCCESS",

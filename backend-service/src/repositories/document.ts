@@ -63,6 +63,16 @@ export async function countDocument(){
     return await prisma.document.count()
 }
 
+export async function countDocumentByUserId(userId: number){
+    return await prisma.document.count({
+        where: {
+            ToUser: {
+                id: userId
+            }
+        }
+    })
+}
+
 export async function findDocumentById(id: number){
     return await prisma.document.findFirst({
         where: {

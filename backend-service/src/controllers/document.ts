@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ErrorHandler } from "../utils/error-handler";
-import { CountDocumentService, CreateDocumentService, DeleteDocumentByNonAdminService, DeleteDocumentService, GetDocumentService } from "../services/document";
+import { CountDocumentByUserId, CountDocumentService, CreateDocumentService, DeleteDocumentByNonAdminService, DeleteDocumentService, GetDocumentService } from "../services/document";
 import { jwtVerify } from "../utils/jwt";
 
 export async function CreateNewDocument(req: Request, res: Response, next: NextFunction){
@@ -73,7 +73,10 @@ export async function DeleteDocument(req: Request, res: Response, next: NextFunc
 
 export async function CountDocument(req: Request, res: Response, next: NextFunction){
     try{
-        const response = await CountDocumentService()
+        const token = req.headers["authorization"]?.split(" ")[1]
+        const UserInfo = jwtVerify(<string>token)
+
+        const response = UserInfo.role == "ADMIN" ? await CountDocumentService() : await CountDocumentByUserId(UserInfo.id)
         res.json(response)
         return
     }

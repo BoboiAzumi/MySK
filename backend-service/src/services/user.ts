@@ -101,6 +101,10 @@ export async function DeleteUserService(userId: number){
         throw new ErrorHandler(404, "NOT_FOUND", "Couldn't find user")
     }
 
+    if(user.fullName == "Admin" && user.email == "admin@mysk"){
+        throw new ErrorHandler(400, "BAD_REQUEST", "Cannot delete admin")
+    }
+
     if(user.picture != "/uploads/img/person.png"){
         unlinkSync(user.picture.replace("/uploads", "./public"))
     }
