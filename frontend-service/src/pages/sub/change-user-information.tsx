@@ -3,10 +3,13 @@ import { Loading } from "../../components/loading"
 import { accountContext } from "../../context/account"
 import { FetchUserById } from "../../utils/fetch-user-by-id"
 import { UserWithId } from "../../types/account"
+import { FetchUpdateUserInfo } from "../../utils/fetch-update-user-info"
+import { FetchUpdateProfileImage } from "../../utils/fetch-update-profile-image"
 
 export function ChangeUserInformation(){
     const [load, setLoad] = useState(false)
     const [user, setUser] = useState({} as UserWithId)
+    const [img, setImg] = useState({} as File)
     const account = useContext(accountContext)
     
     async function fetchUser(){
@@ -19,6 +22,32 @@ export function ChangeUserInformation(){
         fetchUser()
     }, [])
 
+    useEffect(() => {
+        if(!img.name){
+            return
+        }
+
+        console.log(img)
+    })
+
+    async function submit(){
+        const update = await FetchUpdateUserInfo(user.fullName, user.email, user.phone)
+
+        if(update){
+            document.location.href = "/"
+            return
+        }
+    }
+
+    async function updatePhoto(){
+        const update = await FetchUpdateProfileImage(img)
+
+        if(update){
+            document.location.href = "/"
+            return
+        }
+    }
+
     return (
         <>
             {load ? 
@@ -27,6 +56,7 @@ export function ChangeUserInformation(){
                         <h4 className="text-xl lg:text-2xl font-semibold mb-5">Informasi Akun</h4>
                         <form onSubmit={(ev) => {
                                 ev.preventDefault()
+                                submit()
                             }}>
                                 <h6>Full Name</h6>
                                 <input
@@ -69,10 +99,23 @@ export function ChangeUserInformation(){
                                 <button type="submit" className="btn btn-info mb-4">Submit</button>
                         </form>
                         <h4 className="text-xl lg:text-2xl font-semibold mb-5">Foto Profil</h4>
-                        <form onSubmit={(ev) => ev.preventDefault()} className="block">
+                        <form onSubmit={
+                            (ev) => {
+                                ev.preventDefault()
+                                updatePhoto()
+                            }
+                        } className="block">
                             <input
                                     type="file"
                                     className="file-input input-bordered w-full mb-4"
+                                    accept="image/*"
+                                    onChange={(ev) => {
+                                        if(!ev.target.files?.length){
+                                            return
+                                        }
+                                        setImg(ev.target.files[0])
+                                    }}
+                                    required 
                                 />
                             <button type="submit" className="btn btn-info mb-4">Submit</button>
                         </form>

@@ -26,7 +26,7 @@ export type User = {
 
 export type UserResponseTypes = {
     meta: Metadata,
-    data: User[]
+    data: User[] | UserWithId[]
 }
 
 export type UserWithId = {
