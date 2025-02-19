@@ -51,3 +51,11 @@ export async function updatePassword(userId: number, password: string){
         }
     })
 }
+
+export async function deleteAccountByUserId(userId: number){
+    return await prisma.account.delete({
+        where: {
+            userId
+        }
+    })
+}

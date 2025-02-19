@@ -50,3 +50,49 @@ export async function updatePassword(userId: number, password: string){
         }
     })
 }
+
+export async function updateUserInfo(userId: number, fullName: string, email: string, phone: string){
+    return prisma.userInformation.update({
+        data:{
+            fullName,
+            email,
+            phone
+        },
+        where: {
+            id: userId
+        }
+    })
+}
+
+export async function updatePhoto(userId:number, path: string){
+    return prisma.userInformation.update({
+        data: {
+            picture: path
+        },
+        where: {
+            id: userId
+        }
+    })
+}
+
+export async function updateUserAndIdentifier(userId: number, identifier: string, fullName: string, email: string, phone: string){
+    return prisma.userInformation.update({
+        data:{
+            fullName,
+            email,
+            phone,
+            identifier
+        },
+        where: {
+            id: userId
+        }
+    })
+}
+
+export async function deleteUser(userId: number){
+    return prisma.userInformation.delete({
+        where:{
+            id: userId
+        }
+    })
+}

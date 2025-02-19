@@ -82,3 +82,44 @@ export async function deleteDocument(id: number){
         }
     })
 }
+
+export async function findDocumentRelatedByUserId(userId: number){
+    return await prisma.document.findMany({
+        where: {
+            OR: [
+                {
+                    ByUser: {
+                        id: userId
+                    }
+                },
+                {
+                    ToUser: {
+                        id: userId
+                    }
+                }
+            ]
+        },
+        include: {
+            File: true
+        }
+    })
+}
+
+export async function deleteDocumentRelatedByUserId(userId: number){
+    return await prisma.document.deleteMany({
+        where: {
+            OR: [
+                {
+                    ByUser: {
+                        id: userId
+                    }
+                },
+                {
+                    ToUser: {
+                        id: userId
+                    }
+                }
+            ]
+        }
+    })
+}

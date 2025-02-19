@@ -9,7 +9,6 @@ export async function FileUpload(req: Request, res: Response, next: NextFunction
         const documentId = req.body.documentId
 
         if(!documentId){
-            console.log("CATCH")
             unlinkSync(`./public/files/${req.file?.filename}`)
             next(new ErrorHandler(400, "BAD_REQUEST", "documentId not include in your request"))
             return

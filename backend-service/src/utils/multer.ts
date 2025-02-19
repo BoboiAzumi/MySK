@@ -27,3 +27,27 @@ export function FileValidator(req: Request, file: Express.Multer.File, callback:
         return
     }
 }
+
+export const imageStorage = multer.diskStorage({
+    destination: (req: Express.Request, file: Express.Multer.File, callback: Function) => {
+        callback(null, "./public/img/")
+    },
+    filename: (req: Express.Request, file: Express.Multer.File, callback: Function) => {
+        const ext = path.extname(<string>file.originalname)
+        callback(null, `${uuid()}${ext}`)
+    }
+})
+
+export function ImgValidator(req: Request, file: Express.Multer.File, callback: Function){
+    const allowedTypes = /.jpg|.jpeg|.png|.webp|.avif|.tiff/
+    const extension = allowedTypes.test(path.extname(file.originalname).toLowerCase())
+
+    if(extension){
+        callback(null, true)
+        return
+    }
+    else {
+        callback(new ErrorHandler(400, "WRONG_FILE_EXTENSION", "Only allowed jpg, jpeg, png, webp, avif, and tiff"))
+        return
+    }
+}
