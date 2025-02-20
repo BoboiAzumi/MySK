@@ -62,6 +62,11 @@ You can shutdown and delete all running service by command
 ```bash
 sudo docker compose down --rmi "all"
 ```
+This project will running in port 3000
+
+http://localhost:3000
+
+http://0.0.0.0:3000
 
 ## File Store
 All files will store in
