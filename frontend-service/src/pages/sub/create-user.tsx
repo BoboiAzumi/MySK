@@ -34,7 +34,7 @@ export function CreateNewUser(){
                                 />
                                 <h6>Email</h6>
                                 <input 
-                                    type="text" 
+                                    type="email" 
                                     className="input input-bordered w-full mb-4" 
                                     placeholder="Email"
                                     value={v.email}
