@@ -49,7 +49,7 @@ VITE_BACKEND_URL="http://www.abcd.com"
 
 Change ```VITE_ENVIRONMENT``` into ```PRODUCTION``` for deploying, or change into ```SPLIT``` if deploy in separate server.
 
-If you change ```VITE_ENVIRONMENT``` into ```SPLIT``` you mush change ```VITE_BACKEND_URL```.
+If you change ```VITE_ENVIRONMENT``` into ```SPLIT``` you should change ```VITE_BACKEND_URL```.
 
 ## Setup Nginx Reverse Proxy
 Update ```nginx/default.conf```
@@ -73,8 +73,8 @@ server {
     }
 }
 ```
-By default, nginx will open port 3000, if you want change this port, you must edit ```listen``` into port number you want.
-And then, you must edit configuration in ```docker-compose.yaml```.
+By default, nginx will open port 3000, if you want change this port, you should edit ```listen```.
+And then edit port configuration in ```docker-compose.yaml```.
 ```bash
 reverse-proxy:
     build:
@@ -95,7 +95,7 @@ reverse-proxy:
       mysk-network:
         ipv4_address: 172.120.0.4
 ```
-change ```ports``` into port number you want, for example
+change ```ports```, for example
 
 ```bash
 reverse-proxy:
