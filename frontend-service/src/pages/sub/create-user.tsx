@@ -85,7 +85,7 @@ export function CreateNewUser(){
                                     value={v.credential.username}
                                     onChange={(ev) => {
                                         const usersBefore = [...users]
-                                        usersBefore[i].credential.username = ev.target.value
+                                        usersBefore[i].credential.username = ev.target.value.toLowerCase()
                                         setUsers(usersBefore)
                                     }}
                                 />
