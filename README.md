@@ -57,16 +57,17 @@ If all prerequisite and configuration already done, you can deploy this project 
 sudo docker compose up -d
 ```
 
-## Shutdown
-You can shutdown and delete all running service by command
-```bash
-sudo docker compose down --rmi "all"
-```
 This project will running in port 3000
 
 http://localhost:3000
 
 http://0.0.0.0:3000
+
+## Shutdown
+You can shutdown and delete all running service by command
+```bash
+sudo docker compose down --rmi "all"
+```
 
 ## File Store
 All files will store in
