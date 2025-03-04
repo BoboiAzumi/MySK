@@ -31,6 +31,8 @@ export type DocumentTypes = {
     to: number,
     documentType: string,
     createdAt: string,
+    academicYear?: string,
+    semester?: string
     File: FileDbTypes[],
     ByUser: UserDocumentTypes,
     ToUser: UserDocumentTypes

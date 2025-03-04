@@ -22,14 +22,6 @@ export function ChangeUserInformation(){
         fetchUser()
     }, [])
 
-    useEffect(() => {
-        if(!img.name){
-            return
-        }
-
-        console.log(img)
-    })
-
     async function submit(){
         const update = await FetchUpdateUserInfo(user.fullName, user.email, user.phone)
 

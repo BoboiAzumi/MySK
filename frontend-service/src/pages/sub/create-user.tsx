@@ -10,7 +10,7 @@ export function CreateNewUser(){
 
     useEffect(() => {
         setTimeout(() => setLoad(true), 1000)
-    })
+    }, [])
 
     return (
         <>

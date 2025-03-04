@@ -21,7 +21,7 @@ export function UsersList(){
 
     useEffect(() => {
         FetchUserList()
-    })
+    }, [])
 
     function confirmDeleteModal(){
         (document.getElementById("confirm_delete_modal") as HTMLDialogElement).show()

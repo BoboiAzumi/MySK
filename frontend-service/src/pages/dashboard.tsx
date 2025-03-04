@@ -1,7 +1,7 @@
 
 import logo from "../assets/logo.webp"
 import { Navbar } from "../components/navbar"
-import { AiFillAppstore, AiOutlineArrowLeft, AiOutlineHdd, AiOutlineIdcard, AiOutlineSolution } from "react-icons/ai"
+import { AiFillAppstore, AiFillSetting, AiOutlineArrowLeft, AiOutlineHdd, AiOutlineIdcard, AiOutlineSolution } from "react-icons/ai"
 import { ResetToken } from "../utils/token"
 import { useState } from "react"
 import { SubDashboard } from "./sub/dashboard"
@@ -13,6 +13,7 @@ import { CreateNewUser } from "./sub/create-user"
 import { UsersList } from "./sub/users-list"
 import { ChangePassword } from "./sub/change-password"
 import { ChangeUserInformation } from "./sub/change-user-information"
+import { Configuration } from "./sub/configuration"
 
 export function Dashboard(){
     const [pages, setPages] = useState(1)
@@ -35,7 +36,10 @@ export function Dashboard(){
                     pages == 5 ? 
                         (<CreateNewUser />) : 
                     pages == 6 ? 
-                        (<ChangePassword />) : (<ChangeUserInformation />)}
+                        (<ChangePassword />) : 
+                    pages == 7 ? (<ChangeUserInformation />) :
+                        (<Configuration />)
+                    }
                 </div>
                 {/* Sidebar */}
                 <div className="drawer-side z-40">
@@ -110,6 +114,21 @@ export function Dashboard(){
                                         <li>
                                             <a className={`${(pages == 7? "bg-[#2b3440] text-[#d7dde4] " : "")}`} onClick={() => setPages(7)}>
                                                 Ubah Informasi Pengguna
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </details>
+                            </li>
+                            <li className="w-full">
+                                <details className="w-full" open={true}>
+                                    <summary className="group">
+                                        <AiFillSetting />
+                                        Setelan
+                                    </summary>
+                                    <ul>
+                                        <li>
+                                            <a className={`${(pages == 8? "bg-[#2b3440] text-[#d7dde4] " : "")}`} onClick={() => setPages(8)}>
+                                                Konfigurasi
                                             </a>
                                         </li>
                                     </ul>

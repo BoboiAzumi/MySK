@@ -78,35 +78,57 @@ export function ListSK(){
                                     <h6 className="font-semibold mb-5 items-center">
                                         {v.title}
                                     </h6>
-                                    <div className="grid grid-cols-2 grid-flow-row-dense gap-2 lg:w-[50%]">
-                                        <h6 className="font-semibold">
-                                            Jenis
-                                        </h6>
-                                        <h6>
-                                            : <div className={`badge h-auto badge-success`}>
-                                                <h6 className="font-semibold">
-                                                    {v.documentType}
-                                                </h6>
-                                            </div>
-                                        </h6>
-                                        <h6 className="font-semibold">
-                                            Uploaded by
-                                        </h6>
-                                        <h6>
-                                            : {v.ByUser.fullName}
-                                        </h6>
-                                        <h6 className="font-semibold">
-                                            To
-                                        </h6>
-                                        <h6>
-                                            : {v.ToUser.fullName}
-                                        </h6>
-                                        <h6 className="font-semibold">
-                                            Date
-                                        </h6>
-                                        <h6>
-                                            : {ParseDate(v.createdAt)}
-                                        </h6>
+                                    <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+                                        <table className="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Jenis</td>
+                                                    <td>
+                                                        : {v.documentType}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Tahun Ajaran
+                                                    </td>
+                                                    <td>
+                                                        : {v.academicYear}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Semester
+                                                    </td>
+                                                    <td>
+                                                        : {v.semester}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Diupload oleh
+                                                    </td>
+                                                    <td>
+                                                        : {v.ByUser.fullName}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Kepada
+                                                    </td>
+                                                    <td>
+                                                        : {v.ToUser.fullName}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Tanggal
+                                                    </td>
+                                                    <td>
+                                                        : {ParseDate(v.createdAt)}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <h6 className="mt-5 font-semibold">Files</h6>
                                     {v.File.map((file) => (
