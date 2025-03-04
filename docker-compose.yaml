@@ -22,6 +22,9 @@ services:
     networks:
       mysk-network:
         ipv4_address: 172.120.0.2
+    
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
 
   frontend-service:
     build: 
