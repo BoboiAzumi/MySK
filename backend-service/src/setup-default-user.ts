@@ -1,3 +1,4 @@
+import { setEndAcademicYear, setSemester, setStartAcademicYear } from "./repositories/config";
 import { hashPassword } from "./utils/bcrypt";
 import { prisma } from "./utils/database";
 
@@ -45,6 +46,10 @@ async function main(){
             }
         })
     }
+
+    await setStartAcademicYear("2025");
+    await setEndAcademicYear("2026");
+    await setSemester("Ganjil")
 }
 
 main()

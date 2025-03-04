@@ -1,5 +1,6 @@
-import { DocumentType } from "@prisma/client";
+import { DocumentType, Semester } from "@prisma/client";
 import { prisma } from "../utils/database";
+import { getAcademicYear, getSemester } from "./config";
 
 export async function createNewDocument(title: string, by: number, to: number, documentType: DocumentType){
     return await prisma.document.create({
@@ -7,7 +8,9 @@ export async function createNewDocument(title: string, by: number, to: number, d
             title,
             by,
             to,
-            documentType
+            documentType,
+            academicYear: await getAcademicYear(),
+            semester: await getSemester() as Semester
         }
     })
 }

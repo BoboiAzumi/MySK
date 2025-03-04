@@ -45,6 +45,8 @@ model Document {
   by           Int
   to           Int
   createdAt    DateTime        @default(now())
+  academicYear String          @map("academic_year")
+  semester     Semester        @default(Ganjil)
   documentType DocumentType    @map("document_type")
   ByUser       UserInformation @relation(fields: [by], references: [id], name: "by")
   ToUser       UserInformation @relation(fields: [to], references: [id], name: "to")
@@ -65,6 +67,12 @@ model File {
   @@map("files")
 }
 
+model Config {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String @default("")
+}
+
 enum Role {
   ADMIN
   DOSEN
@@ -75,4 +83,9 @@ enum DocumentType {
   Penelitian
   Pengabdian
   Penunjang
+}
+
+enum Semester {
+  Ganjil
+  Genap
 }
