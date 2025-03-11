@@ -132,7 +132,7 @@ export function ListSK(){
                                     </div>
                                     <h6 className="mt-5 font-semibold">Files</h6>
                                     {v.File.map((file) => (
-                                        <div className="flex justify-between items-center mb-5 gap-3">
+                                        <div className="flex justify-between items-center mb-5 gap-3 overflow-auto">
                                             <h6>{file.fileName}</h6>
                                             <a href={`${BackendUrl}${file.location}`} target="_blank" className="btn btn-info">Download</a>
                                         </div>
