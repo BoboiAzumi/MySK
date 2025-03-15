@@ -131,8 +131,6 @@ export function UploadPage() {
                                             }
                                         }
                                     }
-
-                                    draggable
                                 >
                                     <input 
                                         type="file" 

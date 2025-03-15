@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { Loading } from "../../components/loading"
 import { FetchDocument } from "../../utils/fetch-document"
 import { DocumentTypes, PaginationTypes } from "../../types/document"
@@ -7,6 +7,10 @@ import { BackendUrl } from "../../config/backend-host"
 import { accountContext } from "../../context/account"
 import { DeleteDocument } from "../../utils/delete-document"
 import { ParseDate } from "../../utils/parse-date"
+
+interface RefViewObject {
+    scrollTop: number
+}
 
 export function ListSK(){
     const [load, setLoad] = useState(false)
@@ -16,6 +20,7 @@ export function ListSK(){
     const [limit, setLimit] = useState(5)
     const [selectedDocument, setSelectedDocument] = useState(0)
     const [search, setSearch] = useState("")
+    const viewRef = useRef({} as RefViewObject)
     const account = useContext(accountContext)
 
     async function loadDocument(){
@@ -90,7 +95,7 @@ export function ListSK(){
                                 <tbody>
                                     {
                                         documentResponse.map((v:DocumentTypes, i:number) => (
-                                            <tr>
+                                            <tr key={i}>
                                                 <td>{(i + (limit * (page -  1))) + 1}</td>
                                                 <td>
                                                     <p className="min-w-[7rem]">{v.title}</p>
@@ -109,6 +114,7 @@ export function ListSK(){
                                                                 setSelectedDocument(i)
                                                                 const modal = (document.getElementById("view_modal") as HTMLFormElement)
                                                                 modal?.showModal()
+                                                                viewRef.current.scrollTop = 0
                                                             }}
                                                         >View
                                                         </button>
@@ -170,7 +176,7 @@ export function ListSK(){
             </dialog>
 
             <dialog id="view_modal" className="modal modal-bottom sm:modal-middle">
-                <div className="modal-box max-h-[75vh] overflow-y-auto">
+                <div className="modal-box max-h-[75vh] overflow-y-auto" ref={viewRef as (React.Ref<HTMLDivElement> | undefined)}>
                     <div className="w-full bg-[#f2f2f2] p-4 rounded-md mb-4">
                         <h6 className="font-semibold mb-5 items-center">
                             {documentResponse[selectedDocument]?.title}
